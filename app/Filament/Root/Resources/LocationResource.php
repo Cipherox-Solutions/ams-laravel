@@ -80,8 +80,8 @@ class LocationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TagsColumn::make('spaces.name'),
-                Tables\Columns\TextColumn::make('locationTags.name')->limitList(),
+                Tables\Columns\TextColumn::make('spaces.name')->badge(),
+                Tables\Columns\TextColumn::make('locationTags.name')->badge()->limitList(),
             ])
             ->filters([
                 //

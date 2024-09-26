@@ -47,7 +47,7 @@ class OrganizationResource extends Resource
 
                 Forms\Components\Select::make('divisions')
                     ->multiple()
-                    ->relationship('divisions', 'type')
+                    ->relationship('divisions', 'name')
                     ->options(Division::all()->pluck('name', '_id'))
                     // ->options(Division::whereNull('division_id')->orWhere('division_id', '')->get()->pluck('name', '_id'))
                     ->label('Division')
@@ -68,6 +68,7 @@ class OrganizationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('divisions.name')->badge(),
             ])
             ->filters([
                 //

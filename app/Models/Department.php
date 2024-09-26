@@ -9,7 +9,7 @@ use MongoDB\Laravel\Relations\BelongsTo;
 
 class Department extends Model
 {
-    
+
 
     protected $connection = 'mongodb';
     protected $collection = 'department';
@@ -17,9 +17,9 @@ class Department extends Model
     protected $fillable = ['name', 'division_id' ];
 
 
-    public function division() {
+    public function division(): BelongsTo {
 
-        return $this->belongsTo(Division::class, 'division_id');
+        return $this->belongsTo(Division::class, 'division_id', 'division_id');
     }
 
 }

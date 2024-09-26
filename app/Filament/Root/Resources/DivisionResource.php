@@ -28,8 +28,8 @@ class DivisionResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->unique(ignoreRecord: true),
-                
-                
+
+
             ]);
     }
 
@@ -37,7 +37,6 @@ class DivisionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('organization.name'),
                 Tables\Columns\TextColumn::make('name'),
             ])
             ->filters([
@@ -45,6 +44,7 @@ class DivisionResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

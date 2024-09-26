@@ -20,7 +20,7 @@ class AttributeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Attributes';
-    
+
 
     public static function form(Form $form): Form
     {
@@ -34,7 +34,7 @@ class AttributeResource extends Resource
                 Forms\Components\Toggle::make('required')
                     ->required(),
                 Forms\Components\TextInput::make('default'),
-                
+
                 // Main attribute type selector
                 Forms\Components\Select::make('type')
                     ->required()
@@ -91,7 +91,7 @@ class AttributeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('label'),
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('type')->badge(),
             ])
             ->filters([
                 //

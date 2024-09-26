@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -23,11 +24,18 @@ class RootPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
             ->id('root')
             ->path('root')
+            ->spa(true)
+            ->login()
+            ->passwordReset()
+            ->defaultThemeMode(ThemeMode::Light)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ])
+            ->maxContentWidth('7xl')
+            ->sidebarCollapsibleOnDesktop(true)
             ->discoverResources(in: app_path('Filament/Root/Resources'), for: 'App\\Filament\\Root\\Resources')
             ->discoverPages(in: app_path('Filament/Root/Pages'), for: 'App\\Filament\\Root\\Pages')
             ->pages([
@@ -36,7 +44,20 @@ class RootPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Root/Widgets'), for: 'App\\Filament\\Root\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+            ])
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                    ->gridColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                        'lg' => 3,
+                    ])
+                    ->sectionColumnSpan(1)
+                    ->checkboxListColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                        'lg' => 2,
+                    ]),
             ])
             ->middleware([
                 EncryptCookies::class,

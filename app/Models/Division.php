@@ -13,17 +13,17 @@ class Division extends Model
     protected $connection = 'mongodb';
     protected $collection = 'division';
 
-    protected $fillable = ['name', 'organization_id' ];
+    protected $fillable = ['name'];
 
-    public function departments() {
+    public function departments(): HasMany {
 
-        return $this->hasMany(Department::class, 'division_id');
-        
+        return $this->hasMany(Department::class, 'division_id', 'department_id');
+
     }
-    
-    public function organization() {
 
-        return $this->belongsTo(Organization::class, 'organization_id');
+    public function organizations(): BelongsToMany {
+
+        return $this->belongsToMany(Organization::class, 'organization_division', 'division_id', 'organization_id');
     }
 
 

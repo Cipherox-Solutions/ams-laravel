@@ -43,7 +43,7 @@ class AttributeGroupResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('group_name'),
-                Tables\Columns\TagsColumn::make('attributes.label'),
+                Tables\Columns\TextColumn::make('attributes.label')->badge(),
             ])
             ->filters([
                 //

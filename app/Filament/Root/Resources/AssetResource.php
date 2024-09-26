@@ -26,7 +26,7 @@ class AssetResource extends Resource
 
     protected static ?string $navigationGroup = 'Assets';
 
-    protected static function getDynamicAttributes($assetTypeId): array
+    public static function getDynamicAttributes($assetTypeId): array
     {
         if (!$assetTypeId) {
             return [];
@@ -34,7 +34,7 @@ class AssetResource extends Resource
 
         $attributeGroups = AssetType::find($assetTypeId)->attributeGroups;
         // $assetType = AssetType::find($assetTypeId);
-        // $attributeGroups = AttributeGroup::whereIn('asset_type_id', $assetTypeId)->get();
+        // $attributeGroups = AttributeGroup::whereIn('assetType', $assetTypeId)->get();
 
         $blocks = [];
         foreach ($attributeGroups as $attributeGroup) {
@@ -64,7 +64,7 @@ class AssetResource extends Resource
         // ];
     }
 
-    protected static function getDynamicTraits($assetTypeId): array
+    public static function getDynamicTraits($assetTypeId): array
     {
         if (!$assetTypeId) {
             return [];
@@ -95,7 +95,7 @@ class AssetResource extends Resource
                 TextInput::make('name')
                     ->required(),
 
-                Select::make('asset_type_id')
+                Select::make('assetType')
                     ->relationship('assetType', 'name')
                     ->options(AssetType::all()->pluck('name', '_id'))
                     ->reactive()
@@ -105,7 +105,7 @@ class AssetResource extends Resource
                     ->afterStateUpdated(function ($state, callable $set, $get) {
 
                         // populating attributes on state change
-                        $assetTypeId = $get('asset_type_id');
+                        $assetTypeId = $get('assetType');
 
                         if (!$assetTypeId) {
                             return [];
@@ -147,13 +147,13 @@ class AssetResource extends Resource
                     ->preload(),
 
                 Builder::make('attributes')
-                    ->visible(function (Forms\Get $get) {
-                        return $get('asset_type_id') != null;
+                    ->visible(function (callable $get) {
+                        return $get('assetType') != null;
                     })
                     ->label('Attributes')
-                    ->blocks(fn(callable $get) => self::getDynamicAttributes($get('asset_type_id')))
-//                    ->minItems(fn(Forms\Get $get) => count(self::getDynamicAttributes($get('asset_type_id'))))
-//                    ->maxItems(fn(Forms\Get $get) => count(self::getDynamicAttributes($get('asset_type_id'))))
+                    ->blocks(fn(callable $get) => self::getDynamicAttributes($get('assetType')))
+//                    ->minItems(fn(Forms\Get $get) => count(self::getDynamicAttributes($get('assetType'))))
+//                    ->maxItems(fn(Forms\Get $get) => count(self::getDynamicAttributes($get('assetType'))))
                     ->required()
                     ->deletable(false)
                     ->addable(false)
@@ -162,11 +162,11 @@ class AssetResource extends Resource
                     ->columnSpan(2),
 
                 Builder::make('traits')
-                    ->visible(function (Forms\Get $get) {
-                        return $get('asset_type_id') != null;
+                    ->visible(function (callable $get) {
+                        return $get('assetType') != null;
                     })
                     ->label('Traits')
-                    ->blocks(fn(callable $get) => self::getDynamicTraits($get('asset_type_id')))
+                    ->blocks(fn(callable $get) => self::getDynamicTraits($get('assetType')))
                     ->required()
                     ->deletable(false)
                     ->addable(false)
@@ -181,8 +181,8 @@ class AssetResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TagsColumn::make('assetType.name'),
-                Tables\Columns\TagsColumn::make('assetTags.name')->limitList(),
+                Tables\Columns\TextColumn::make('assetType.name')->badge(),
+                Tables\Columns\TextColumn::make('assetTags.name')->badge()->limitList(),
             ])
             ->filters([
                 //

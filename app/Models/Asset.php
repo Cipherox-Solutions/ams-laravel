@@ -18,7 +18,7 @@ class Asset extends Model
 
     public function assetType(): BelongsTo
     {
-        return $this->belongsTo(AssetType::class, 'asset_type_id');
+        return $this->belongsTo(AssetType::class);
     }
 
     public function assetTags(): BelongsToMany

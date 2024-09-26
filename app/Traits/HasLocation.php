@@ -9,9 +9,10 @@ use Filament\Forms;
 
 class HasLocation extends BaseTrait {
 
-    protected static $label = "Has Location";
+    protected static string $label = "Has Location";
 
-    public static function attributes() {
+    public static function attributes(): array
+    {
 
         return [
             Forms\Components\Select::make('location')
@@ -41,8 +42,17 @@ class HasLocation extends BaseTrait {
                     }
 
                     return Asset::where('traits.data.space', $space_id)
-                        ->where('traits.type', 'Is Container')->pluck('name', 'id');
+                        ->where('traits.type', 'Is Container')
+                        ->pluck('name', 'id');
                 }),
+//            Forms\Components\Repeater::make('positions')
+//                ->visible(function (callable $get) {
+//                    return $get('container') != null;
+//                })
+//                ->schema([
+//                    Forms\Components\TextInput::make('name')->required(),
+//                ])
+//                ->addActionLabel('Add a new position'),
         ];
 //        return FormHelper::createAllFilamentFormField([
 //            "asda"  => [

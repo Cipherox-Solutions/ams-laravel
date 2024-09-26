@@ -71,10 +71,10 @@ class SpaceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TagsColumn::make('locations.name'),
+                Tables\Columns\TextColumn::make('locations.name')->badge(),
                 Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TagsColumn::make('floor'),
-                Tables\Columns\TagsColumn::make('sqft'),
+                Tables\Columns\TextColumn::make('floor')->badge(),
+                Tables\Columns\TextColumn::make('sqft')->badge(),
 
             ])
             ->filters([

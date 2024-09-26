@@ -98,7 +98,7 @@ class AssetTypeResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('icon'),
                 Tables\Columns\ColorColumn::make('color'),
-                Tables\Columns\TagsColumn::make('attributeGroups.group_name')->limitList(),
+                Tables\Columns\TextColumn::make('attributeGroups.group_name')->badge()->limitList(),
             ])
             ->filters([
                 //
@@ -117,7 +117,7 @@ class AssetTypeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\AssetsRelationManager::class
         ];
     }
 

@@ -7,14 +7,15 @@ use Filament\Panel;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Illuminate\Foundation\Auth\User as Authenticatable;
-use MongoDB\Laravel\Auth\User as Authenticatable; 
+use MongoDB\Laravel\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
     protected $connection = 'mongodb';
 
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -55,7 +56,7 @@ class User extends Authenticatable implements FilamentUser
         if ($panel->getId() === 'root') {
             return str_ends_with($this->email, '@p-amsdev.cipherox.com'); // && $this->hasVerifiedEmail();
         }
- 
+
         return true;
     }
 }
