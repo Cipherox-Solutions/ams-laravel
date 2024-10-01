@@ -17,7 +17,7 @@ class AssetTagResource extends Resource
 {
     protected static ?string $model = AssetTag::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     protected static ?string $navigationGroup = 'Assets';
 
@@ -35,7 +35,7 @@ class AssetTagResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')->searchable(),
             ])
             ->filters([
                 //
@@ -62,8 +62,8 @@ class AssetTagResource extends Resource
     {
         return [
             'index' => Pages\ListAssetTags::route('/'),
-            'create' => Pages\CreateAssetTag::route('/create'),
-            'edit' => Pages\EditAssetTag::route('/{record}/edit'),
+//            'create' => Pages\CreateAssetTag::route('/create'),
+//            'edit' => Pages\EditAssetTag::route('/{record}/edit'),
         ];
     }
 }

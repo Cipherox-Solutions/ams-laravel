@@ -14,12 +14,14 @@ class Department extends Model
     protected $connection = 'mongodb';
     protected $collection = 'department';
 
-    protected $fillable = ['name', 'division_id' ];
+    protected $fillable = ['name'];
 
+    public function users(): HasMany {
+        return $this->hasMany(User::class);
+    }
 
     public function division(): BelongsTo {
-
-        return $this->belongsTo(Division::class, 'division_id', 'division_id');
+        return $this->belongsTo(Division::class);
     }
 
 }

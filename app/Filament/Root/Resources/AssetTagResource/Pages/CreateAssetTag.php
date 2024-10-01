@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAssetTag extends CreateRecord
 {
     protected static string $resource = AssetTagResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['saas_account_id'] = auth()->id();
+
+        return $data;
+    }
 }

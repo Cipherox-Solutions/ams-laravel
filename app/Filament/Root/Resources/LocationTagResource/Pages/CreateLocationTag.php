@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateLocationTag extends CreateRecord
 {
     protected static string $resource = LocationTagResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['saas_account_id'] = auth()->id();
+
+        return $data;
+    }
 }

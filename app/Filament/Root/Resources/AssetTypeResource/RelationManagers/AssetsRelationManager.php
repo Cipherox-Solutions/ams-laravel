@@ -111,15 +111,28 @@ class AssetsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('assetType.name')->badge(),
-                Tables\Columns\TextColumn::make('assetTags.name')->badge()->limitList(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('assetType.name')
+                    ->badge()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('assetTags.name')
+                    ->badge()
+                    ->limitList()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->mutateFormDataUsing(function (array $data): array {
+                        $data['saas_account_id'] = auth()->id();
+
+                        return $data;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

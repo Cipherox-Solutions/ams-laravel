@@ -5,6 +5,7 @@ namespace App\Filament\Root\Resources;
 use App\Filament\Root\Resources\DivisionResource\Pages;
 use App\Filament\Root\Resources\DivisionResource\RelationManagers;
 use App\Models\Division;
+use App\Models\Organization;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -29,7 +30,11 @@ class DivisionResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true),
 
-
+                Forms\Components\Select::make('organization')
+                    ->label('Organization')
+                    ->relationship('organization', 'name')
+                    ->options(Organization::pluck('name', '_id')->all())
+                    ->required()
             ]);
     }
 
@@ -38,6 +43,7 @@ class DivisionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('organization.name')->badge(),
             ])
             ->filters([
                 //

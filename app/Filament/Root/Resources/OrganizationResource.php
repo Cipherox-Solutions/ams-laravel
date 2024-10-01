@@ -45,13 +45,13 @@ class OrganizationResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true),
 
-                Forms\Components\Select::make('divisions')
-                    ->multiple()
-                    ->relationship('divisions', 'name')
-                    ->options(Division::all()->pluck('name', '_id'))
-                    // ->options(Division::whereNull('division_id')->orWhere('division_id', '')->get()->pluck('name', '_id'))
-                    ->label('Division')
-                    ->preload(),
+                // Forms\Components\Select::make('divisions')
+                //     ->multiple()
+                //     ->relationship('divisions', 'name')
+                //     ->options(Division::all()->pluck('name', '_id'))
+                //     // ->options(Division::whereNull('division_id')->orWhere('division_id', '')->get()->pluck('name', '_id'))
+                //     ->label('Division')
+                //     ->preload(),
 
                 Forms\Components\FileUpload::make('logo')
                     ->image(),
@@ -68,7 +68,8 @@ class OrganizationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('divisions.name')->badge(),
+                Tables\Columns\TextColumn::make('website'),
+                Tables\Columns\TextColumn::make('email'),
             ])
             ->filters([
                 //

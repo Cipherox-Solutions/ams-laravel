@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Vendor extends Model
-{
-    use HasFactory;
+use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\BelongsTo;
+use MongoDB\Laravel\Relations\BelongsToMany;
+
+
+class Vendor extends Model {
+
+    protected $connection = 'mongodb';
+    protected $collection = 'vendors';
+    
 }

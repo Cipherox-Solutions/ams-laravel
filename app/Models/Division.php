@@ -4,7 +4,6 @@ namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
 use MongoDB\Laravel\Relations\HasMany;
-use MongoDB\Laravel\Relations\BelongsToMany;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 
@@ -15,16 +14,15 @@ class Division extends Model
 
     protected $fillable = ['name'];
 
+    public function users(): HasMany {
+        return $this->hasMany(User::class);
+    }
+
     public function departments(): HasMany {
-
-        return $this->hasMany(Department::class, 'division_id', 'department_id');
-
+        return $this->hasMany(Department::class);
     }
 
-    public function organizations(): BelongsToMany {
-
-        return $this->belongsToMany(Organization::class, 'organization_division', 'division_id', 'organization_id');
+    public function organization(): BelongsTo {
+        return $this->belongsTo(Organization::class);
     }
-
-
 }

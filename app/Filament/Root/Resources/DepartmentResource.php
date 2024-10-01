@@ -5,6 +5,7 @@ namespace App\Filament\Root\Resources;
 use App\Filament\Root\Resources\DepartmentResource\Pages;
 use App\Filament\Root\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
+use App\Models\Division;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,12 +21,20 @@ class DepartmentResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Organization';
-    
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->unique(ignoreRecord: true),
+
+                Forms\Components\Select::make('division')
+                    ->label('Division')
+                    ->relationship('division', 'name')
+                    ->options(Division::pluck('name', '_id')->all())
+                    ->required()
             ]);
     }
 
@@ -33,7 +42,8 @@ class DepartmentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('division.name')->badge(),
             ])
             ->filters([
                 //

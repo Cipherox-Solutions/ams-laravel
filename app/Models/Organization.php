@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\Laravel\Relations\BelongsToMany;
+use MongoDB\Laravel\Relations\HasMany;
 
 class Organization extends Model {
 
@@ -12,9 +12,12 @@ class Organization extends Model {
 
     protected $fillable = ['name', 'logo', 'website', 'registration', 'custom_attributes', 'selected_custom_attributes'];
 
-    public function divisions(): BelongsToMany {
+    public function users(): HasMany {
+        return $this->hasMany(User::class);
+    }
 
-        return $this->belongsToMany(Division::class, 'organization_division', 'organization_id', 'division_id');
+    public function divisions(): HasMany {
+        return $this->hasMany(Division::class);
     }
 
 }

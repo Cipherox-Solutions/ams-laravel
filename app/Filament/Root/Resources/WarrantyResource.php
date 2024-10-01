@@ -27,7 +27,7 @@ class WarrantyResource extends Resource
             ]);
     }
 
-    protected static ?string $navigationGroup = 'Warranty';
+    protected static ?string $navigationGroup = 'Vendor';
 
     public static function table(Table $table): Table
     {

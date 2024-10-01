@@ -22,7 +22,7 @@ class AssetResource extends Resource
 {
     protected static ?string $model = Asset::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
 
     protected static ?string $navigationGroup = 'Assets';
 
@@ -147,9 +147,7 @@ class AssetResource extends Resource
                     ->preload(),
 
                 Builder::make('attributes')
-                    ->visible(function (callable $get) {
-                        return $get('assetType') != null;
-                    })
+                    ->visible(fn(callable $get) => $get('assetType') != null)
                     ->label('Attributes')
                     ->blocks(fn(callable $get) => self::getDynamicAttributes($get('assetType')))
 //                    ->minItems(fn(Forms\Get $get) => count(self::getDynamicAttributes($get('assetType'))))
@@ -180,12 +178,24 @@ class AssetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('assetType.name')->badge(),
-                Tables\Columns\TextColumn::make('assetTags.name')->badge()->limitList(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('assetType.name')
+                    ->badge()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('assetTags.name')
+                    ->badge()
+                    ->searchable()
+                    ->limitList(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('assetType')
+                    ->multiple()
+                    ->relationship('assetType', 'name')
+                    ->searchable()
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

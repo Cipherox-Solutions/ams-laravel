@@ -27,7 +27,7 @@ class RootPanelProvider extends PanelProvider
             ->default()
             ->id('root')
             ->path('root')
-            ->spa(true)
+            ->spa()
             ->login()
             ->passwordReset()
             ->defaultThemeMode(ThemeMode::Light)
@@ -35,7 +35,7 @@ class RootPanelProvider extends PanelProvider
                 'primary' => Color::Blue,
             ])
             ->maxContentWidth('7xl')
-            ->sidebarCollapsibleOnDesktop(true)
+            ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Root/Resources'), for: 'App\\Filament\\Root\\Resources')
             ->discoverPages(in: app_path('Filament/Root/Pages'), for: 'App\\Filament\\Root\\Pages')
             ->pages([

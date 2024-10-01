@@ -42,7 +42,7 @@ class HasInvoice extends BaseTrait {
             //         }
 
             //         return Asset::where('traits.data.space', $space_id)
-            //             ->where('traits.type', 'Is Container')->pluck('name', 'id');
+            //             ->where('traits.type', 'Is Container')->pluck('name', '_id');
             //     }),
         ];
 //        return FormHelper::createAllFilamentFormField([

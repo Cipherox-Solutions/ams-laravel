@@ -10,6 +10,7 @@ class HasCondition extends Base\BaseTrait
     protected static string $label = 'Has Condition';
 
     public static function attributes(): array {
+
         return [
             Forms\Components\Select::make('status')
                 ->label('Status')
@@ -18,6 +19,25 @@ class HasCondition extends Base\BaseTrait
                     'used' => 'Used',
                     'damaged' => 'Damaged',
                 ])
+        ];
+    }
+    public static function actions(): array {
+        return [
+            "damaged"  => [
+                "label" => "Damaged",
+                "form"  => "damaged_form",
+                "handler"=> "",
+            ],
+        ];
+    }
+    public function damagedForm($asset_id): array {
+        return [
+
+        ];
+    }
+    public function handler($asset_id , $submitted_form ): array {
+        return [
+
         ];
     }
 }

@@ -9,8 +9,8 @@ use MongoDB\Laravel\Relations\BelongsTo;
 use MongoDB\Laravel\Relations\BelongsToMany;
 
 
-class Asset extends Model
-{
+class Asset extends Model {
+    
     protected $connection = 'mongodb';
     protected $collection = 'assets';
 

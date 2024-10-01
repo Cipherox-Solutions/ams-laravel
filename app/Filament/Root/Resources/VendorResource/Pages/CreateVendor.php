@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateVendor extends CreateRecord
 {
     protected static string $resource = VendorResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['saas_account_id'] = auth()->id();
+
+        return $data;
+    }
 }
